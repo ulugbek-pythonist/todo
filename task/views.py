@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
 
 from task.models import Task
 
@@ -15,27 +16,27 @@ def home(request):
     }
     return render(request, "home.html", context)
 
-
+@login_required
 def add_task(request):
     task = request.POST["task"]
     Task.objects.create(task=task)
     return redirect("home")
 
-
+@login_required
 def make_done(request, pk):
     selected_task = get_object_or_404(Task, pk=pk)
     selected_task.is_done = True
     selected_task.save()
     return redirect("home")
 
-
+@login_required
 def make_undone(request, pk):
     selected_task = get_object_or_404(Task, pk=pk)
     selected_task.is_done = False
     selected_task.save()
     return redirect("home")
 
-
+@login_required
 def edit_task(request, pk):
     task = get_object_or_404(Task, id=pk)
     if request.method == "POST":
@@ -49,7 +50,7 @@ def edit_task(request, pk):
 
         return render(request, "edit.html", context)
 
-
+@login_required
 def delete_task(request, pk):
     selected = get_object_or_404(Task, id=pk)
     selected.delete()
