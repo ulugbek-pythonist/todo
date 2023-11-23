@@ -34,6 +34,8 @@
     <div class="profile">
       <img src="../media/user.png" width="100px" height="100px" alt="user's image">
       <b>{{request.user.username}}</b>
+      <br>
+      <b><a href="{% url 'logout' %}">Log out</a></b>
     </div>
     <div class="container">
       <h3 class="pt-5 text-center">Django ToDo App</h3>
@@ -107,7 +109,7 @@
       </div>
       {% else %}
           <br>
-          <h2>You did't login yet</h2>
+          <h2>You did't login yet or logged out</h2>
           <br>
           <br>
           <a href="{% url 'login' %}" class="btn btn-lg btn-outline-danger" style="max-width: 30%;">Login</a>
