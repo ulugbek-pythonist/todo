@@ -32,7 +32,7 @@
   </head>
   <body>
     <div class="container">
-      <h3 class="pt-5 text-center">Django ToDo App</h3>
+      <h3 class="pt-5 text-center">To Do</h3>
       <div class="row">
         <h4>My Day</h4>
         <p class="text-muted">{% now "jS F Y" %}</p>
@@ -43,13 +43,16 @@
             <div class="card-body">
               {{task.task}}
               <span style="position: relative; float: right">
-                <a href="{% url 'done' task.pk %}" class="btn btn-success"
+                <a href="#" class="btn btn-outline-primary">
+                  <i class="fa fa-check"></i>{{task.category}}
+                </a>
+                <a href="#" class="btn btn-success"
                   ><i class="fa fa-check"></i> Mark as Done</a
                 >
-                <a href="{% url 'delete' task.pk %}" class="btn btn-danger"
+                <a href="#" class="btn btn-danger"
                   ><i class="fa fa-trash"></i
                 ></a>
-                <a href="{% url 'edit' task.pk %}" class="btn btn-primary"
+                <a href="#" class="btn btn-primary"
                   ><i class="fa fa-pencil"></i
                 ></a>
               </span>
@@ -64,10 +67,10 @@
           <div class="card m-1">
             <div class="card-body">{{i.task}}</div>
             <span style="position: relative; float: right">
-              <a href="{% url 'undone' i.id %}" class="btn btn-success"
+              <a href="#" class="btn btn-success"
                 ><i class="fa fa-check"></i> Make as undone</a
               >
-              <a href="{% url 'delete' i.id %}" class="btn btn-danger"
+              <a href="#" class="btn btn-danger"
                 ><i class="fa fa-trash"></i> Delete</a
               >
             </span>
@@ -81,7 +84,7 @@
           style="position: absolute; bottom: 50px"
         >
           <!-- To Do Form -->
-          <form action="{% url 'add' %}" method="post">
+          <form action="#" method="post">
             <div class="form-group">
               {% csrf_token %}
               <span style="display: flex">
