@@ -88,7 +88,7 @@
             style="position: absolute; bottom: 50px"
           >
             <!-- To Do Form -->
-            <form action="#" method="post">
+            <form action="{% url 'add-task' %}" method="post">
               <div class="form-group">
                 {% csrf_token %}
                 <span style="display: flex">
@@ -97,11 +97,18 @@
                     name="task"
                     class="form-control"
                     placeholder="Add a task"
-                  />
-                  <button class="btn btn-primary" style="width: 200px">
-                    <i class="fa fa-plus"></i> Add
-                  </button>
-                </span>
+                    />
+                    <button class="btn btn-primary" style="width: 200px">
+                      <i class="fa fa-plus"></i> Add
+                    </button>
+                  </span>
+                  <p>select category of task:</p>
+                  <select name="category" required>
+                    <option disabled selected value> -- select an option -- </option>
+                    {% for category in categories %}
+                    <option value="{{category}}">{{category}}</option>
+                    {% endfor %}
+                  </select>
               </div>
             </form>
           </div>

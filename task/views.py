@@ -1,14 +1,44 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from .forms import RegisterForm
 
-from .models import Task
+from .models import Category, Task
+
+
+@login_required # type: ignore
+def add_task(request):
+    if request.method == "POST":
+        try:
+            task = request.POST["task"]
+            category = request.POST["category"]
+            category = get_object_or_404(Category,name=category)
+            print(task,category)
+        except Exception:
+            return redirect("home")
+
+        if task is not None:
+            Task.objects.create(task=task,category=category,doer=request.user)
+
+        return redirect("home")
 
 
 def home(request):
-    tasks = Task.objects.all()
-    return render(request, "home.html", {"tasks": tasks})
+    categories = Category.objects.all()
+    try:
+        tasks = Task.objects.filter(doer=request.user)
+    except Exception:
+        tasks = []
+
+    return render(
+        request,
+        "home.html",
+        {
+            "tasks": tasks,
+            "categories": categories,
+        },
+    )
 
 
 def register(request):
@@ -32,12 +62,11 @@ def register(request):
             user.set_password(password)
             user.save()
 
-            return redirect('login')
+            return redirect("login")
         else:
             form = RegisterForm
-            return render(request,"register.html",{"form":form})
+            return render(request, "register.html", {"form": form})
     else:
         form = RegisterForm
 
-        return render(request,"register.html",{"form":form})
-
+        return render(request, "register.html", {"form": form})
