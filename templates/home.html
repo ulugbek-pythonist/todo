@@ -31,77 +31,88 @@
     </style>
   </head>
   <body>
+    {% if user.is_authenticated %}
+        <nav style="float: right; margin: 30px;">
+          <a href="{% url 'logout' %}" class="btn btn-outline-primary">Log out</a>
+        </nav>
     <div class="container">
-      <h3 class="pt-5 text-center">To Do</h3>
-      <div class="row">
-        <h4>My Day</h4>
-        <p class="text-muted">{% now "jS F Y" %}</p>
-        <div class="col-md-7 col-lg-7" style="height: 450px; overflow: scroll">
-          <!-- List of all the tasks for the day -->
-          {% for task in tasks %}
-          <div class="card m-1">
-            <div class="card-body">
-              {{task.task}}
+        <h3 class="pt-5 text-center">To Do</h3>
+        <div class="row">
+          <h4>My Day</h4>
+          <p class="text-muted">{% now "jS F Y" %}</p>
+          <div class="col-md-7 col-lg-7" style="height: 450px; overflow: scroll">
+            <!-- List of all the tasks for the day -->
+            {% for task in tasks %}
+            <div class="card m-1">
+              <div class="card-body">
+                {{task.task}}
+                <span style="position: relative; float: right">
+                  <a href="#" class="btn btn-outline-primary">
+                    <i class="fa fa-check"></i>{{task.category}}
+                  </a>
+                  <a href="#" class="btn btn-success"
+                    ><i class="fa fa-check"></i> Mark as Done</a
+                  >
+                  <a href="#" class="btn btn-danger"
+                    ><i class="fa fa-trash"></i
+                  ></a>
+                  <a href="#" class="btn btn-primary"
+                    ><i class="fa fa-pencil"></i
+                  ></a>
+                </span>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="col-md-5 col-lg-5">
+            <h5>Completed Tasks</h5>
+            <!-- List of all the tasks that have completed -->
+            {% for i in completed_tasks %}
+            <div class="card m-1">
+              <div class="card-body">{{i.task}}</div>
               <span style="position: relative; float: right">
-                <a href="#" class="btn btn-outline-primary">
-                  <i class="fa fa-check"></i>{{task.category}}
-                </a>
                 <a href="#" class="btn btn-success"
-                  ><i class="fa fa-check"></i> Mark as Done</a
+                  ><i class="fa fa-check"></i> Make as undone</a
                 >
                 <a href="#" class="btn btn-danger"
-                  ><i class="fa fa-trash"></i
-                ></a>
-                <a href="#" class="btn btn-primary"
-                  ><i class="fa fa-pencil"></i
-                ></a>
+                  ><i class="fa fa-trash"></i> Delete</a
+                >
               </span>
             </div>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
-        <div class="col-md-5 col-lg-5">
-          <h5>Completed Tasks</h5>
-          <!-- List of all the tasks that have completed -->
-          {% for i in completed_tasks %}
-          <div class="card m-1">
-            <div class="card-body">{{i.task}}</div>
-            <span style="position: relative; float: right">
-              <a href="#" class="btn btn-success"
-                ><i class="fa fa-check"></i> Make as undone</a
-              >
-              <a href="#" class="btn btn-danger"
-                ><i class="fa fa-trash"></i> Delete</a
-              >
-            </span>
+        <div class="row">
+          <div
+            class="col-md-6 col-lg-6 p-0"
+            style="position: absolute; bottom: 50px"
+          >
+            <!-- To Do Form -->
+            <form action="#" method="post">
+              <div class="form-group">
+                {% csrf_token %}
+                <span style="display: flex">
+                  <input
+                    type="text"
+                    name="task"
+                    class="form-control"
+                    placeholder="Add a task"
+                  />
+                  <button class="btn btn-primary" style="width: 200px">
+                    <i class="fa fa-plus"></i> Add
+                  </button>
+                </span>
+              </div>
+            </form>
           </div>
-          {% endfor %}
         </div>
-      </div>
-      <div class="row">
-        <div
-          class="col-md-6 col-lg-6 p-0"
-          style="position: absolute; bottom: 50px"
-        >
-          <!-- To Do Form -->
-          <form action="#" method="post">
-            <div class="form-group">
-              {% csrf_token %}
-              <span style="display: flex">
-                <input
-                  type="text"
-                  name="task"
-                  class="form-control"
-                  placeholder="Add a task"
-                />
-                <button class="btn btn-primary" style="width: 200px">
-                  <i class="fa fa-plus"></i> Add
-                </button>
-              </span>
-            </div>
-          </form>
+      {% else %}
+        <h3 style="text-align: center; margin-top: 70px; margin-bottom: 50px;">Register or login</h3>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <a href="{% url 'register' %}" class="btn btn-outline-primary">Register</a><br><br>
+          <a href="{% url 'login' %}" class="btn btn-outline-success">Login</a>
         </div>
-      </div>
+      {% endif %}
     </div>
   </body>
 </html>

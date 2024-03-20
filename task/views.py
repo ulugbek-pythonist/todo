@@ -32,8 +32,12 @@ def register(request):
             user.set_password(password)
             user.save()
 
-            return redirect('home')
+            return redirect('login')
+        else:
+            form = RegisterForm
+            return render(request,"register.html",{"form":form})
     else:
         form = RegisterForm
 
         return render(request,"register.html",{"form":form})
+
