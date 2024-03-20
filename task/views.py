@@ -7,19 +7,62 @@ from .forms import RegisterForm
 from .models import Category, Task
 
 
-@login_required # type: ignore
+@login_required  # type: ignore
+def delete_task(request, pk):
+    task = Task.objects.filter(id=pk, doer=request.user).first()
+
+    if task is None:
+        return render(request, "error.html", {"user": request.user})
+
+    task.delete()
+    return redirect("home")
+
+@login_required  # type: ignore
+def edit_task(request, pk):
+    task = Task.objects.filter(id=pk, doer=request.user).first()
+    categories = Category.objects.all()
+
+    if task is None:
+        return render(request, "error.html", {"user": request.user})
+
+    if request.method == "POST":
+        try:
+            changed = request.POST["changed"]
+            category = request.POST["category"]
+            category = get_object_or_404(Category,name=category)
+        except Exception:
+            return redirect("home")
+        
+
+        task.task = changed
+        task.category = category    
+        task.save()
+
+        return redirect("home")
+    else:
+        return render(
+            request,
+            "edit.html",
+            {
+                "task": task,
+                "categories": categories,
+            },
+        )
+
+
+@login_required  # type: ignore
 def add_task(request):
     if request.method == "POST":
         try:
             task = request.POST["task"]
             category = request.POST["category"]
-            category = get_object_or_404(Category,name=category)
-            print(task,category)
+            category = get_object_or_404(Category, name=category)
+            print(task, category)
         except Exception:
             return redirect("home")
 
         if task is not None:
-            Task.objects.create(task=task,category=category,doer=request.user)
+            Task.objects.create(task=task, category=category, doer=request.user)
 
         return redirect("home")
 

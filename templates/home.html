@@ -53,10 +53,10 @@
                   <a href="#" class="btn btn-success"
                     ><i class="fa fa-check"></i> Mark as Done</a
                   >
-                  <a href="#" class="btn btn-danger"
+                  <a href="{% url 'delete-task' task.id %}" class="btn btn-danger"
                     ><i class="fa fa-trash"></i
                   ></a>
-                  <a href="#" class="btn btn-primary"
+                  <a href="{% url 'edit-task' task.id %}" class="btn btn-primary"
                     ><i class="fa fa-pencil"></i
                   ></a>
                 </span>
@@ -67,9 +67,9 @@
           <div class="col-md-5 col-lg-5">
             <h5>Completed Tasks</h5>
             <!-- List of all the tasks that have completed -->
-            {% for i in completed_tasks %}
+            <!-- {% for i in completed_tasks %} -->
             <div class="card m-1">
-              <div class="card-body">{{i.task}}</div>
+              <div class="card-body"></div>
               <span style="position: relative; float: right">
                 <a href="#" class="btn btn-success"
                   ><i class="fa fa-check"></i> Make as undone</a
@@ -79,7 +79,7 @@
                 >
               </span>
             </div>
-            {% endfor %}
+            <!-- {% endfor %} -->
           </div>
         </div>
         <div class="row">

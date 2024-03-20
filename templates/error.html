@@ -32,39 +32,19 @@
   </head>
   <body>
     <div class="container">
-      <h3 class="pt-5 text-center">Django ToDo App</h3>
+      <h3 class="pt-5 text-center">To Do</h3>
       <div class="row">
         <h4>My Day</h4>
         <p class="text-muted">{% now "jS F Y" %}</p>
       <div class="row">
-        <form action="{% url 'edit-task' task.id %}" method="post">
-            <div class="form-group">
-              {% csrf_token %}
-              <span style="display: flex;">
-                <input
-                  type="text"
-                  name="changed"
-                  class="form-control"
-                  placeholder="Edit a task"
-                  value="{{task.task}}"
-                />
-                <button class="btn btn-primary mx-2 " style="width: 200px;">
-                  <i class="fa fa-plus"></i> Edit
-                </button>
-                <button class="btn  btn-lg btn-secondary" style="width: 150px;">
-                    <a href="{% url 'home' %}" style="color: white;">back</a>
-                </button>
-              </span>
-            </div>
-            <br><br>
-            <p>if you want, change category:</p>
-                  <select name="category">
-                    <option disabled selected value>{{task.category}}</option>
-                    {% for category in categories %}
-                    <option value="{{category}}">{{category}}</option>
-                    {% endfor %}
-                  </select>
-          </form>
+        <div class="card m-1">
+            <div class="card-body">Dear {{user.first_name}}, I think you did something wrong</div>
+            <span style="position: relative; float: right">
+                <a href="{% url 'home' %}" class="btn btn-outline-success"
+                ><i class="fa fa-check"></i> Go home</a
+              >
+            </span>
+          </div>
       </div>
     </div>
   </body>
