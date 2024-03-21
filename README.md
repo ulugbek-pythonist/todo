@@ -32,16 +32,6 @@ Qo'shimcha xususiyatlar:
 
 Endi o'rganuvchilar uchun ayrim kodlarni quyida keltiraman:<br/>
 
-<a href="https://github.com/ulugbek-pythonist/todo/README.md# Eng avval `task.models.py` faylga nazar tashlaymiz:">Modellar</a><br/><br/>
-<a href="https://github.com/ulugbek-pythonist/todo/README.md# Barcha tasklar:">Barcha tasklar</a><br/><br/>
-<a href="https://github.com/ulugbek-pythonist/todo/README.md# Task qo'shish uchun yozilgan view:">Task qo'shish</a><br/><br/>
-<a href="https://github.com/ulugbek-pythonist/todo/README.md# Taskni tahrirlash uchun yozilgan view:">Taskni tahrirlash uchun yozilgan view</a><br/><br/>
-<a href="https://github.com/ulugbek-pythonist/todo/README.md# Taskni o'chirish uchun:">Taskni o'chirish uchun yozilgan view</a><br/><br/>
-<a href="https://github.com/ulugbek-pythonist/todo/README.md# Taskni bajarilgan yoki bajarilmagan deb belgilash:">Taskni bajarilgan yoki bajarilmagan deb belgilash</a><br/><br/>
-<a href="https://github.com/ulugbek-pythonist/todo/README.md# Kategoriyasi bo'yicha tasklarni ko'rish:">Kategoriyasi bo'yicha tasklarni ko'rish</a><br/><br/>
-<a href="https://github.com/ulugbek-pythonist/todo/README.md# Ro'yhatdan o'tish:">Ro'yhatdan o'tish</a><br/><br/>
-<a href="https://github.com/ulugbek-pythonist/todo/README.md# Login va logout uchun default view lardan foydalanilgan, faqat templatelar yozib qo'yilgan xolos:">Login va logout</a><br/><br/>
-
 # Eng avval `task.models.py` faylga nazar tashlaymiz:
 <br/>
 
