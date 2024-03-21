@@ -6,3 +6,5 @@ urlpatterns = [
     path('volt/', include('admin_volt.urls')),
     path('', include('task.urls')),
 ]
+
+handler404 = "task.views.custom_page_not_found"

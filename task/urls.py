@@ -18,4 +18,3 @@ urlpatterns = [
 
     path("tasks/<slug:slug>/",filtered_tasks,name="task-by-category"),
 ]
-handler404 = "task.views.custom_page_not_found"
