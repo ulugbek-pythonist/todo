@@ -47,10 +47,10 @@
               <div class="card-body">
                 {{task.task}}
                 <span style="position: relative; float: right">
-                  <a href="#" class="btn btn-outline-primary">
+                  <a href="{% url 'task-by-category' task.category.slug %}" class="btn btn-outline-primary">
                     <i class="fa fa-check"></i>{{task.category}}
                   </a>
-                  <a href="#" class="btn btn-success"
+                  <a href="{% url 'mark-as-done' task.id %}" class="btn btn-success"
                     ><i class="fa fa-check"></i> Mark as Done</a
                   >
                   <a href="{% url 'delete-task' task.id %}" class="btn btn-danger"
@@ -67,19 +67,22 @@
           <div class="col-md-5 col-lg-5">
             <h5>Completed Tasks</h5>
             <!-- List of all the tasks that have completed -->
-            <!-- {% for i in completed_tasks %} -->
+            {% for task in completed_tasks %}
             <div class="card m-1">
-              <div class="card-body"></div>
+              <div class="card-body">{{task.task}}</div>
               <span style="position: relative; float: right">
-                <a href="#" class="btn btn-success"
-                  ><i class="fa fa-check"></i> Make as undone</a
+                <a href="{% url 'task-by-category' task.category.slug %}" class="btn btn-outline-info"
+                  ><i class="fa fa-check"></i>{{task.category}}</a
                 >
-                <a href="#" class="btn btn-danger"
+                <a href="{% url 'mark-as-undone' task.id %}" class="btn btn-warning"
+                  ><i class="fa fa-coffee"></i> Make as undone</a
+                >
+                <a href="{% url 'delete-task' task.id %}" class="btn btn-danger"
                   ><i class="fa fa-trash"></i> Delete</a
                 >
               </span>
             </div>
-            <!-- {% endfor %} -->
+            {% endfor %}
           </div>
         </div>
         <div class="row">
@@ -104,7 +107,7 @@
                   </span>
                   <p>select category of task:</p>
                   <select name="category" required>
-                    <option disabled selected value> -- select an option -- </option>
+                    <option disabled selected value> -- select category -- </option>
                     {% for category in categories %}
                     <option value="{{category}}">{{category}}</option>
                     {% endfor %}

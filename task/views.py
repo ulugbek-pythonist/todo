@@ -6,6 +6,53 @@ from .forms import RegisterForm
 
 from .models import Category, Task
 
+def custom_page_not_found(request,exception):
+    return render(request,"404.html",status=404)
+
+
+@login_required  # type: ignore
+def filtered_tasks(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    tasks = Task.objects.filter(category=category, doer=request.user)
+
+    if tasks.count() <= 0:
+        return render(request, "error.html", {"user": request.user})
+
+    return render(
+        request,
+        "tasks.html",
+        {
+            "tasks": tasks,
+            "category": category,
+        },
+    )
+
+
+@login_required  # type: ignore
+def mark_as_undone(request, pk):
+    task = Task.objects.filter(id=pk, doer=request.user).first()
+
+    if task is None:
+        return render(request, "error.html", {"user": request.user})
+
+    task.is_done = False
+    task.save()
+
+    return redirect("home")
+
+
+@login_required  # type: ignore
+def mark_as_done(request, pk):
+    task = Task.objects.filter(id=pk, doer=request.user).first()
+
+    if task is None:
+        return render(request, "error.html", {"user": request.user})
+
+    task.is_done = True
+    task.save()
+
+    return redirect("home")
+
 
 @login_required  # type: ignore
 def delete_task(request, pk):
@@ -16,6 +63,7 @@ def delete_task(request, pk):
 
     task.delete()
     return redirect("home")
+
 
 @login_required  # type: ignore
 def edit_task(request, pk):
@@ -29,13 +77,12 @@ def edit_task(request, pk):
         try:
             changed = request.POST["changed"]
             category = request.POST["category"]
-            category = get_object_or_404(Category,name=category)
+            category = get_object_or_404(Category, name=category)
         except Exception:
             return redirect("home")
-        
 
-        task.task = changed
-        task.category = category    
+        task.task = changed if len(changed) > 0 else task.task
+        task.category = category
         task.save()
 
         return redirect("home")
@@ -70,17 +117,16 @@ def add_task(request):
 def home(request):
     categories = Category.objects.all()
     try:
-        tasks = Task.objects.filter(doer=request.user)
+        tasks = Task.objects.filter(doer=request.user, is_done=False)
+        done_tasks = Task.objects.filter(doer=request.user, is_done=True)
     except Exception:
         tasks = []
+        done_tasks = []
 
     return render(
         request,
         "home.html",
-        {
-            "tasks": tasks,
-            "categories": categories,
-        },
+        {"tasks": tasks, "categories": categories, "completed_tasks": done_tasks},
     )
 
 

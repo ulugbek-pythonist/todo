@@ -59,7 +59,7 @@
             <br><br>
             <p>if you want, change category:</p>
                   <select name="category">
-                    <option disabled selected value>{{task.category}}</option>
+                    <option value="{{task.category}}">{{task.category}}</option>
                     {% for category in categories %}
                     <option value="{{category}}">{{category}}</option>
                     {% endfor %}
